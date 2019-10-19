@@ -70,3 +70,11 @@
      * It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
 
      * Edit the text in random.txt to test out the feature for movie-this and concert-this.
+
+     responseSpotify.tracks.items[i].artists[0].name,
+    responseSpotify.tracks.items[i].album.name,
+    responseSpotify.tracks.items[i].name,
+    responseSpotify.tracks.items[i].preview_url,
+
+
+

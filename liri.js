@@ -12,20 +12,20 @@ var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 
 // user command and input
-var input = process.argv[2];
-var userInput = process.argv.slice(3).join(" ");
+var command = process.argv[2];
+var userQuery = process.argv.slice(3).join(" ");
 
-if (input === 'concert-this') {
+if (command === 'concert-this') {
     concertThis();
 }
-else if (input === 'spotify-this-song') {
-    spotifyThisSong(searchType);
+else if (command === 'spotify-this-song') {
+    spotifyThisSong();
 }
-else if (input === 'movie-this') {
-    movieThis(searchType);
+else if (command === 'movie-this') {
+    movieThis();
 }
-else if (input === 'do-what-it-says') {
-    doWhatItSays(searchType);
+else if (command === 'do-what-it-says') {
+    doWhatItSays(userQuery);
 }
 else {
     console.log('please enter valid command');
@@ -33,9 +33,13 @@ else {
 }
 
 function concertThis() {
-    axios.get("https://rest.bandsintown.com/artists/" + "Madonna" + "/events?app_id=codingbootcamp")
+    axios.get("https://rest.bandsintown.com/artists/" + userQuery + "/events?app_id=codingbootcamp")
         .then(function (response) {
-        console.log(response, "response");
+        // console.log(response.data[0], "response");
+        console.log(response.data[0].venue.name, "venue");
+        console.log(response.data[0].venue.city, "location");
+        var concertDate = moment(response.data[0].datetime).format("MM/DD/YYYY hh:00 A");
+                    console.log(`Date and Time: ${concertDate}\n\n`);
     })
         .catch(function (error) {
         console.log(error);
@@ -50,15 +54,15 @@ function concertThis() {
 //  * `https://rest.bandsintown.com/artists/celine+dion/events?app_id=codingbootcamp`
 
 function spotifyThisSong() {
-console.log('')
+console.log()
 }
 
 function movieThis() {
-
+console.log()
 }
 
 function doWhatItSays() {
-
+console.log()
 }
 
 
