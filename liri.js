@@ -8,7 +8,6 @@ var fs = require('fs');
 var axios = require('axios');
 var moment = require('moment');
 var Spotify = require('node-spotify-api');
-
 var spotify = new Spotify(keys.spotify);
 
 // user command and input
@@ -46,12 +45,41 @@ function concertThis() {
   })
 };
 
-
 function spotifyThisSong() {
-console.log()
-}
+    if (!userQuery) {
+        userQuery = "the sign ace of base"
+    };
+
+    spotify.search({ type: 'track', query: userQuery }, function(err, data) {
+        if ( err ) {
+            console.log('Error occurred: ' + err);
+            return;  
+        }
+        else{
+        var songInfo = data.tracks.items[0];
+        var songResult = console.log("artist:" + songInfo.artists[0].name);
+                         console.log("song:" + songInfo.name);
+                         console.log("album:" + songInfo.album.name);
+                         console.log("preview:" + songInfo.preview_url);
+        console.log(songResult);
+        };
+      });
+
+};
+
+
+// This will show the following information about the song in your terminal/bash window
+//      * Artist(s)
+//      * The song's name
+//      * A preview link of the song from Spotify
+//      * The album that the song is from
+//    * If no song is provided then your program will default to "The Sign" by Ace of Base.
+//    * You will utilize the [node-spotify-api](https://www.npmjs.com/package/node-spotify-api) package in order to retrieve song information from the Spotify API.
 
 function movieThis() {
+    if (!userQuery) {
+        userQuery = "mr nobody";
+    };
     axios.get("http://www.omdbapi.com/?t=" + userQuery + "&y=&plot=short&apikey=trilogy")
     .then(function(response) {
         console.log("title: " + response.data.Title);
@@ -67,10 +95,6 @@ function movieThis() {
          console.log(error);
 })
 };
-
-//    * If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
-
-
 
 function doWhatItSays() {
 console.log()
