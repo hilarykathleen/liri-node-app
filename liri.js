@@ -28,15 +28,13 @@ else if (command === 'do-what-it-says') {
 }
 else {
     console.log('please enter valid command');
-
 }
 
 function concertThis() {
     axios.get("https://rest.bandsintown.com/artists/" + userQuery + "/events?app_id=codingbootcamp")
         .then(function (response) {
-        // console.log(response.data[0], "response");
-        console.log("venue:" + response.data[0].venue.name);
-        console.log("location:" + response.data[0].venue.city);
+        console.log("venue: " + response.data[0].venue.name);
+        console.log("location: " + response.data[0].venue.city);
         var concertDate = moment(response.data[0].datetime).format("MM/DD/YYYY hh:00 A");
                     console.log(`Date and Time: ${concertDate}\n\n`);
     })
@@ -57,24 +55,15 @@ function spotifyThisSong() {
         }
         else{
         var songInfo = data.tracks.items[0];
-        var songResult = console.log("artist:" + songInfo.artists[0].name);
-                         console.log("song:" + songInfo.name);
-                         console.log("album:" + songInfo.album.name);
-                         console.log("preview:" + songInfo.preview_url);
+        var songResult = console.log("artist: " + songInfo.artists[0].name);
+                         console.log("song: " + songInfo.name);
+                         console.log("album: " + songInfo.album.name);
+                         console.log("preview: " + songInfo.preview_url);
         console.log(songResult);
         };
       });
 
 };
-
-
-// This will show the following information about the song in your terminal/bash window
-//      * Artist(s)
-//      * The song's name
-//      * A preview link of the song from Spotify
-//      * The album that the song is from
-//    * If no song is provided then your program will default to "The Sign" by Ace of Base.
-//    * You will utilize the [node-spotify-api](https://www.npmjs.com/package/node-spotify-api) package in order to retrieve song information from the Spotify API.
 
 function movieThis() {
     if (!userQuery) {
@@ -97,8 +86,20 @@ function movieThis() {
 };
 
 function doWhatItSays() {
-console.log()
-}
+    fs.readFile("random.txt", "utf8", function (error, data) {
+        if (error) {
+            return console.log(error);
+        }
+        
+        var dataArr = data.split(",");
+
+        command = dataArr[0];
+        userQuery = dataArr[1];
+        
+        console.log(command, userQuery);
+    });
+
+};
 
 
 
